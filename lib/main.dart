@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app_csi/home_page.dart';
 
 void main() {
-  runApp(
-    MaterialApp(
-      home: Scaffold(body: Center(child: Text("To Do app"))),
-    ),
-  );
+  runApp(MaterialApp(debugShowCheckedModeBanner: false, home: HomePage()));
 }
