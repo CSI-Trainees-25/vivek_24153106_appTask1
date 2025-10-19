@@ -12,7 +12,7 @@ class Tasks extends StatefulWidget {
 }
 
 class TasksState extends State {
-  List<Task> _registeredTasks = [
+  final List<Task> _registeredTasks = [
     Task(
       id: 01,
       title: 'Create this todo app for CSI task 4',
@@ -21,7 +21,7 @@ class TasksState extends State {
     ),
     Task(
       id: 02,
-      title: 'Read this novel called Loneliness of Sonia and Sunny',
+      title: 'Complete reading that novel.',
       category: Category.fun,
       date: new DateTime.now(),
     ),
