@@ -14,13 +14,11 @@ class Tasks extends StatefulWidget {
 class TasksState extends State {
   final List<Task> _registeredTasks = [
     Task(
-      id: 01,
       title: 'Create this todo app for CSI task 4',
       category: Category.society,
       date: new DateTime.now(),
     ),
     Task(
-      id: 02,
       title: 'Complete reading that novel.',
       category: Category.fun,
       date: new DateTime.now(),
