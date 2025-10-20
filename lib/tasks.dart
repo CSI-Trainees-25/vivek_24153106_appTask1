@@ -12,7 +12,7 @@ class Tasks extends StatefulWidget {
   }
 }
 
-class TasksState extends State {
+class TasksState extends State<Tasks> {
   final List<Task> _registeredTasks = [
     Task(
       title: 'Create this todo app for CSI task 4',
@@ -40,7 +40,25 @@ class TasksState extends State {
   }
 
   void onRemoveTask(Task task) {
-    _registeredTasks.remove(task);
+    var index = _registeredTasks.indexOf(task);
+    setState(() {
+      _registeredTasks.remove(task);
+    });
+    ScaffoldMessenger.of(context).removeCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration: Duration(seconds: 2),
+        content: const Text('task deleted'),
+        action: SnackBarAction(
+          label: 'undo',
+          onPressed: () {
+            setState(() {
+              _registeredTasks.insert(index, task);
+            });
+          },
+        ),
+      ),
+    );
   }
 
   @override
@@ -57,7 +75,9 @@ class TasksState extends State {
       body: Column(
         children: [
           const Text('Something'),
-          Expanded(child: TaskList(tasks: _registeredTasks)),
+          Expanded(
+            child: TaskList(tasks: _registeredTasks, onRemove: onRemoveTask),
+          ),
         ],
       ),
     );

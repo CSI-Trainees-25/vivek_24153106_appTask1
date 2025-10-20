@@ -77,6 +77,27 @@ class _NewTaskState extends State<NewTask> {
                 Spacer(),
                 TextButton(
                   onPressed: () {
+                    if (_titleController.text.trim().isEmpty ||
+                        _selectedDate == null) {
+                      showDialog(
+                        context: context,
+                        builder: (ctx) => AlertDialog(
+                          title: Text('Invalid Input'),
+                          content: Text(
+                            'Please make sure all the entries are valid.',
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(ctx);
+                              },
+                              child: const Text('Ok.'),
+                            ),
+                          ],
+                        ),
+                      );
+                      return;
+                    }
                     Task task = Task(
                       title: _titleController.text,
                       category: _selectedCategory,
