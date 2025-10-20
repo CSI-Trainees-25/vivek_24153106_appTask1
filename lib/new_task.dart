@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app_csi/task.dart';
+//import 'package:todo_app_csi/tasks.dart';
 
 final formatter = DateFormat.yMd();
 
 class NewTask extends StatefulWidget {
-  const NewTask({super.key});
+  const NewTask({super.key, required this.onAddTask});
+  final void Function(Task task) onAddTask;
 
   @override
   State<NewTask> createState() {
@@ -30,14 +32,6 @@ class _NewTaskState extends State<NewTask> {
     setState(() {
       _selectedDate = pickedDate;
     });
-  }
-
-  void _addTask() {
-    Task task = Task(
-      title: _titleController.text,
-      category: _selectedCategory,
-      date: _selectedDate!,
-    );
   }
 
   @override
@@ -81,7 +75,18 @@ class _NewTaskState extends State<NewTask> {
                   icon: Icon(Icons.calendar_month),
                 ),
                 Spacer(),
-                TextButton(onPressed: () {}, child: Text('Add')),
+                TextButton(
+                  onPressed: () {
+                    Task task = Task(
+                      title: _titleController.text,
+                      category: _selectedCategory,
+                      date: _selectedDate!,
+                    );
+                    widget.onAddTask(task);
+                    Navigator.pop(context);
+                  },
+                  child: Text('Add'),
+                ),
               ],
             ),
           ],

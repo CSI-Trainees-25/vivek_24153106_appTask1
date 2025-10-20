@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:todo_app_csi/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_app_csi/tasks.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -21,7 +21,7 @@ class SplashScreenState extends State<SplashScreen> {
         context,
         MaterialPageRoute(
           builder: (context) {
-            return HomePage();
+            return Tasks();
           },
         ),
       );
