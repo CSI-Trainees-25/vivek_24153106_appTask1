@@ -94,34 +94,13 @@ class TasksState extends State<Tasks> {
               child: Column(
                 children: [
                   Text('view calendar view of the tasks'),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black26,
-                          blurRadius: 8,
-                          offset: Offset(2, 2),
-                        ),
-                      ],
-                      gradient: LinearGradient(
-                        colors: [
-                          const Color.fromARGB(255, 49, 49, 49),
-                          const Color.fromARGB(255, 66, 66, 66),
-                        ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
+                  TableCalendar(
+                    focusedDay: _registeredTasks[getIndex()].date,
+                    firstDay: DateTime(
+                      _registeredTasks[getIndex()].date.year - 1,
                     ),
-                    child: TableCalendar(
-                      focusedDay: _registeredTasks[getIndex()].date,
-                      firstDay: DateTime(
-                        _registeredTasks[getIndex()].date.year - 1,
-                      ),
-                      lastDay: DateTime(
-                        _registeredTasks[getIndex()].date.year + 1,
-                      ),
+                    lastDay: DateTime(
+                      _registeredTasks[getIndex()].date.year + 1,
                     ),
                   ),
                 ],
