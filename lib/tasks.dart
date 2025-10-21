@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app_csi/formatted_text.dart';
 import 'package:todo_app_csi/task_list.dart';
 import 'package:todo_app_csi/task.dart';
 import 'package:todo_app_csi/new_task.dart';
@@ -86,6 +87,9 @@ class TasksState extends State<Tasks> {
 
   @override
   Widget build(BuildContext context) {
+    Widget mainContent = (_registeredTasks.isNotEmpty)
+        ? TaskList(tasks: _registeredTasks, onRemove: onRemoveTask)
+        : FormattedText('no tasks added');
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 39, 38, 38),
       appBar: AppBar(
@@ -98,41 +102,40 @@ class TasksState extends State<Tasks> {
           IconButton(onPressed: _openModalOverlay, icon: const Icon(Icons.add)),
         ],
       ),
-      body: Column(
-        children: [
-          const Text(
-            'calendar view',
-            style: TextStyle(color: Colors.white, fontSize: 16),
-          ),
-          Card(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-              child: Column(
-                children: [
-                  Text('view calendar view of the tasks'),
-                  TableCalendar(
-                    focusedDay: _registeredTasks[getIndex()].date,
-                    firstDay: DateTime(
-                      _registeredTasks[getIndex()].date.year - 1,
+      body:  Column(
+          children: [
+            const Text(
+              'calendar view',
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+            Card(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                child: Column(
+                  children: [
+                    Text('calendar view of the tasks'),
+                    TableCalendar(
+                      focusedDay: DateTime.now(),
+                      firstDay: DateTime.utc(2020, 1, 1),
+                      lastDay: DateTime.utc(2030, 1, 1),
+                      selectedDayPredicate: (day) {
+                        return _registeredTasks.any(
+                          (task) => isSameDay(task.date, day),
+                        );
+                      },
                     ),
-                    lastDay: DateTime(
-                      _registeredTasks[getIndex()].date.year + 1,
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-          CategorySelect(),
-          const Text(
-            'tasks',
-            style: TextStyle(color: Colors.white, fontSize: 16),
-          ),
-          Expanded(
-            child: TaskList(tasks: _registeredTasks, onRemove: onRemoveTask),
-          ),
-        ],
-      ),
+            CategorySelect(),
+            const Text(
+              'tasks',
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+            Expanded(child: mainContent),
+          ],
+        ),
     );
   }
 }
