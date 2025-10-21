@@ -3,6 +3,7 @@ import 'package:todo_app_csi/task_list.dart';
 import 'package:todo_app_csi/task.dart';
 import 'package:todo_app_csi/new_task.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:todo_app_csi/category_select.dart';
 
 class Tasks extends StatefulWidget {
   const Tasks({super.key});
@@ -26,9 +27,24 @@ class TasksState extends State<Tasks> {
       date: DateTime.now(),
     ),
   ];
+  //List<Task>? get _renderedTask =>
+  //_registeredTasks.where((task) => task.isDone == false).toList();
+
+  // void renderList(String text) {
+  //   setState(() {
+  //     if (text.toLowerCase() == 'all') {
+  //       _renderedTask = _registeredTasks;
+  //     } else if (text.toLowerCase() == 'done') {
+  //       _renderedTask = _registeredTasks
+  //           .where((task) => task.isDone == true)
+  //           .toList();
+  //     }
+  //   });
+  // }
+
   void _openModalOverlay() {
     showModalBottomSheet(
-      isScrollControlled: true,
+      //isScrollControlled: true,
       context: context,
       builder: (ctx) => NewTask(onAddTask: onAddTask),
     );
@@ -107,6 +123,7 @@ class TasksState extends State<Tasks> {
               ),
             ),
           ),
+          CategorySelect(),
           const Text(
             'tasks',
             style: TextStyle(color: Colors.white, fontSize: 16),
