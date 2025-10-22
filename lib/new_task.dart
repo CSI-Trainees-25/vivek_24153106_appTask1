@@ -17,6 +17,7 @@ class NewTask extends StatefulWidget {
 
 class _NewTaskState extends State<NewTask> {
   final _titleController = TextEditingController();
+  final _descriptionController = TextEditingController();
 
   DateTime? _selectedDate;
   Category _selectedCategory = Category.work;
@@ -45,6 +46,13 @@ class _NewTaskState extends State<NewTask> {
               controller: _titleController,
               maxLength: 50,
               decoration: const InputDecoration(label: Text('new task title')),
+            ),
+            TextField(
+              controller: _descriptionController,
+              maxLength: 50,
+              decoration: const InputDecoration(
+                label: Text('task description'),
+              ),
             ),
             Row(
               children: [
@@ -100,6 +108,7 @@ class _NewTaskState extends State<NewTask> {
                     }
                     Task task = Task(
                       title: _titleController.text,
+                      description: _descriptionController.text,
                       category: _selectedCategory,
                       date: _selectedDate!,
                     );

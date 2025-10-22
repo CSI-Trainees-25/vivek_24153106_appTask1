@@ -5,6 +5,7 @@ import 'package:todo_app_csi/task.dart';
 import 'package:todo_app_csi/new_task.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:todo_app_csi/category_select.dart';
+import 'package:todo_app_csi/calendar.dart';
 
 class Tasks extends StatefulWidget {
   const Tasks({super.key});
@@ -20,10 +21,12 @@ class TasksState extends State<Tasks> {
     Task(
       title: 'Create this todo app for CSI task 4',
       category: Category.society,
+      description: 'create the app for CSI task',
       date: DateTime.now(),
     ),
     Task(
       title: 'Complete reading that novel.',
+      description: 'reading loneliness of Sonia and Sunny',
       category: Category.fun,
       date: DateTime.now(),
     ),
@@ -102,40 +105,40 @@ class TasksState extends State<Tasks> {
           IconButton(onPressed: _openModalOverlay, icon: const Icon(Icons.add)),
         ],
       ),
-      body:  Column(
-          children: [
-            const Text(
-              'calendar view',
-              style: TextStyle(color: Colors.white, fontSize: 16),
-            ),
-            Card(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-                child: Column(
-                  children: [
-                    Text('calendar view of the tasks'),
-                    TableCalendar(
-                      focusedDay: DateTime.now(),
-                      firstDay: DateTime.utc(2020, 1, 1),
-                      lastDay: DateTime.utc(2030, 1, 1),
-                      selectedDayPredicate: (day) {
-                        return _registeredTasks.any(
-                          (task) => isSameDay(task.date, day),
-                        );
-                      },
-                    ),
-                  ],
-                ),
+      body: Column(
+        children: [
+          const Text(
+            'calendar view',
+            style: TextStyle(color: Colors.white, fontSize: 16),
+          ),
+          Card(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+              child: Column(
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (ctx) => CalendarScreen(_registeredTasks),
+                        ),
+                      );
+                    },
+                    child: Text('calendar view'),
+                  ),
+                ],
               ),
             ),
-            CategorySelect(),
-            const Text(
-              'tasks',
-              style: TextStyle(color: Colors.white, fontSize: 16),
-            ),
-            Expanded(child: mainContent),
-          ],
-        ),
+          ),
+          CategorySelect(),
+          const Text(
+            'tasks',
+            style: TextStyle(color: Colors.white, fontSize: 16),
+          ),
+          Expanded(child: mainContent),
+        ],
+      ),
     );
   }
 }

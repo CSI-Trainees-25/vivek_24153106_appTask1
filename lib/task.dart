@@ -16,10 +16,15 @@ const taskCategory = {
 };
 
 class Task {
-  Task({required this.title, required this.category, required this.date})
-    : id = uuid.v4();
+  Task({
+    required this.title,
+    required this.category,
+    required this.date,
+    required this.description,
+  }) : id = uuid.v4();
   final String id;
   final String title;
+  final String description;
   final Category category;
   final DateTime date;
   bool? isDone = false;

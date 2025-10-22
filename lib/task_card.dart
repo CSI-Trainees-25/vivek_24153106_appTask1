@@ -41,6 +41,10 @@ class _TaskCardState extends State<TaskCard> {
           child: Column(
             children: [
               FormattedText(widget.task.title),
+              Text(
+                widget.task.description,
+                style: TextStyle(fontSize: 10, color: Colors.white),
+              ),
               const SizedBox(height: 5),
               Row(
                 children: [
@@ -57,7 +61,6 @@ class _TaskCardState extends State<TaskCard> {
                         },
                       ),
 
-                      SizedBox(width: 200),
                       FormattedText(widget.task.FormattedDate),
                     ],
                   ),
